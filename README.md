@@ -1,5 +1,5 @@
 # Féléves Projekt Repository
-[![Actions Status](https://github.com/Kerhalish/Homework_CI-CD/workflows/build%20and%20release/badge.svg)](https://github.com/Kerhalish/Homework_CI-CD/actions)
+![Build Status](https://github.com/Kerhalish/Homework_CI-CD/actions/workflows/default.yml/badge.svg)
 
 
 ## Projekt Leírás
