@@ -1,5 +1,6 @@
 # Féléves Projekt Repository
-[![Actions Status](https://github.com/Kerhalish/Homework_CI-CD/workflows/default,%20build%20and%20release/badge.svg)](https://github.com/Kerhalish/Homework_CI-CD/actions)
+[![Actions Status](https://github.com/Kerhalish/Homework_CI-CD/workflows/build%20and%20release/badge.svg)](https://github.com/Kerhalish/Homework_CI-CD/actions)
+
 
 ## Projekt Leírás
 Ebben a repositoryban dolgozom a félév során elkészítendő feladatra. A projekt célja egy webes szolgáltatás létrehozása, amely képes képek és leírások feltöltésére és kezelésére, valamint autók automatikus detektálására a feltöltött képeken.
