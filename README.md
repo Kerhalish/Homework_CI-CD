@@ -15,8 +15,6 @@ A weboldal “üzemeltetői” képesek legyenek feliratkozni az oldalra, azaz k
 ### CI/CD Használata
 A projekt CI/CD részéhez GitHub Actions-t használok, amelyet a korábbi laborok során ismerkedtem meg.
 
-## Technológiai Választások
-A fejlesztés során nincsen technológiai megkötés, így a felhasznált technológiák kiválasztása a projekt specifikus igényeihez igazodik.
 
 ## Fontos Dátumok
 - `2024.04.14` - Fejlesztői dokumentáció feltöltése, mely tartalmazza a CI/CD környezetet.
