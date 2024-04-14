@@ -1,0 +1,59 @@
+name: Basic CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Check for requirements file
+        id: check_requirements
+        run: |
+          if [ -f requirements.txt ]; then
+            echo "::set-output name=exists::true"
+          else
+            echo "::set-output name=exists::false"
+          fi
+
+      - name: Install dependencies
+        if: steps.check_requirements.outputs.exists == 'true'
+        run: |
+          pip install -r requirements.txt
+
+      - name: Lint with flake8
+        if: steps.check_requirements.outputs.exists == 'true'
+        run: |
+          pip install flake8
+          flake8 src/
+
+      - name: Run placeholder tests
+        run: |
+          echo "Running placeholder tests"
+          # Replace this with real test commands later
+          echo "Tests passed"
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Placeholder for deployment
+        run: |
+          echo "This is a placeholder for the deployment step."
+          # Add actual deployment commands here when ready
