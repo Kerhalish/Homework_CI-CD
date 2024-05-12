@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from ultralytics import YOLO
-import os, json
+import os
+import json
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -12,12 +13,15 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def save_descriptions(descriptions):
     with open('descriptions.json', 'w') as f:
         json.dump(descriptions, f)
+
 
 def load_descriptions():
     try:
@@ -26,12 +30,15 @@ def load_descriptions():
     except FileNotFoundError:
         return {}
 
+
 # Load descriptions when the app starts
 descriptions = load_descriptions()
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
@@ -48,14 +55,18 @@ def upload_image():
         flash('Only JPG, JPEG, or PNG files can be uploaded.')
         return redirect(url_for('index'))
 
+
 @app.route('/display/<filename>')
 def display_image(filename):
-    return render_template('display_image.html', filename=filename, image_url=url_for('static', filename=os.path.join('uploads', filename)))
+    return render_template('display_image.html', filename=filename,
+                           image_url=url_for('static', filename=os.path.join('uploads', filename)))
+
 
 @app.route('/images')
 def list_images():
     images = [f for f in os.listdir(UPLOAD_FOLDER) if os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
     return render_template('images.html', images=images)
+
 
 @app.route('/detect/<filename>')
 def detect_image(filename):
@@ -64,7 +75,6 @@ def detect_image(filename):
     results = model.predict(source_path, project=DETECTED_FOLDER, name='results', exist_ok=True, save=True)
     names = model.names  # Get the model names dictionary
 
-    # Find the class id for 'car' using a dictionary lookup
     car_id = None
     for key, value in names.items():
         if value == 'car':
@@ -72,17 +82,16 @@ def detect_image(filename):
             break
 
     if car_id is not None:
-        # Count 'car' objects in the results
         car_count = sum(1 for box in results[0].boxes if box.cls == car_id)
         if results:
-            descriptions[filename] += f" | Detected cars: {car_count}"  # Update the description with the number of detected cars
+            descriptions[filename] += f" | Detected cars: {car_count}"  # Update the description
             save_descriptions(descriptions)  # Save descriptions after updating
             flash('Detection completed successfully.')
         else:
             flash('Detection failed.')
     else:
         flash('Car class not found in model.')
-    
+
     return redirect(url_for('display_image', filename=filename))
 
 
@@ -90,6 +99,7 @@ def detect_image(filename):
 def detected_images():
     image_files = os.listdir('static/detected/results')
     return render_template('detected_images.html', images=image_files, descriptions=descriptions)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
