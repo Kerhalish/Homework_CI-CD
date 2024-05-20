@@ -6,7 +6,6 @@
 <body>
     <h1>Uploaded Image</h1>
     <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
-    <a href="{{ url_for('detect_image', filename=filename) }}"><button>Detect Objects</button></a>
     <a href="/"><button>Back to Home</button></a>
 </body>
 </html>
