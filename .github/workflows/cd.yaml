@@ -40,4 +40,5 @@ jobs:
           git config --global user.email 'actions@github.com'
           git add values.yaml
           git commit -m "Update values.yaml"
-          git push
+          git push https://kerhalish:${{ secrets.GH_TOKEN }}@github.com/Kerhalish/Homework_CI-CD.git
+
