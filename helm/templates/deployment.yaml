@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argo-test-app1
+  name: homework
 spec:
   selector:
     matchLabels:
-      app: argo-test-app1
+      app: homework
   template:
     metadata:
       labels:
-        app: argo-test-app1
+        app: homework
     spec:
       containers:
-        - name: argo-test-app1
-          image: kerhalish/argo-test-app1:{{ .Values.env.APP_VERSION }}
+        - name: homework
+          image: kerhalish/homework:{{ .Values.env.APP_VERSION }}
           ports:
             - name: http
               containerPort: 5000

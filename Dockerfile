@@ -1,7 +1,16 @@
-FROM python:3.6.15-slim-buster
-RUN pip3 install flask requests
-RUN useradd pythonuser -ms /bin/bash
-WORKDIR /home/pythonuser/app
-USER pythonuser
-COPY app.py app.py
-CMD python -u app.py
+# Alap Docker image kiválasztása
+FROM python:3.8-slim
+
+# Munkakönyvtár beállítása
+WORKDIR /app
+
+# Függőségek másolása és telepítése
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+# Alkalmazás fájljainak másolása
+COPY . .
+
+# Parancs beállítása az alkalmazás indításához
+CMD ["python", "app.py"]
+
