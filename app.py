@@ -101,5 +101,11 @@ def detected_images():
     return render_template('detected_images.html', images=image_files, descriptions=descriptions)
 
 
+@app.route('/admin')
+def admin():
+    images = [f for f in os.listdir(UPLOAD_FOLDER) if os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
+    return render_template('admin.html', images=images, descriptions=descriptions)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
