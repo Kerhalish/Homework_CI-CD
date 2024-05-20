@@ -42,3 +42,4 @@ jobs:
           git commit -m "Update values.yaml"
           git push https://kerhalish:${{ secrets.GH_TOKEN }}@github.com/Kerhalish/Homework_CI-CD.git
 
+
